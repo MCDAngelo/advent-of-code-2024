@@ -4,10 +4,10 @@ import requests
 
 
 class InputData:
-    def __init__(self, url):
+    def __init__(self, day):
         load_dotenv()
         self.session_token = os.environ.get("SESSION_TOKEN")
-        self.url = url
+        self.url = f"https://adventofcode.com/2024/day/{day}/input"
         self.load_data()
 
     def load_data(self):

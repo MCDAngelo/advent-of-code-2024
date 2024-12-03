@@ -2,8 +2,7 @@ import re
 from collections import Counter
 from utils.input_data import InputData
 
-day_1_input_url = "https://adventofcode.com/2024/day/1/input"
-raw_input = InputData(day_1_input_url)
+raw_input = InputData(1)
 list_input = [re.split(r"\s+", i) for i in raw_input.input_data]
 
 l1 = [int(i[0]) for i in list_input]
