@@ -1,4 +1,6 @@
+from functools import reduce
 from itertools import product
+import re
 from utils.input_data import InputData
 
 TEST_INPUT = """190: 10 19
@@ -32,9 +34,17 @@ class BridgeRepair:
 
     def test_operations(self, k):
         def _test_combo(vals, ops):
-            running_total = vals[0]
-            for i, n in enumerate(vals[1:]):
-                running_total = eval(f"{running_total}{ops[i]}{n}")
+            comb_lists = [
+                sub[i] for i in range(len(ops)) for sub in [vals, ops]
+            ] + vals[len(ops) :]
+            str_rep = reduce(
+                (lambda x, y: str(x) + str(y) if y != "||" else x), comb_lists
+            )
+            clean_list = re.split("(\\*|\\+)", str_rep)
+            running_total = reduce(
+                (lambda x, y: eval(f"{x}{y}") if y not in ops else f"{x}{y}"),
+                clean_list,
+            )
             return running_total == k
 
         v = self.data.get(k)
